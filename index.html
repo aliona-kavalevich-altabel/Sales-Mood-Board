@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daily Mood Board</title>
+  <style>
+    :root {
+      --bg: #f4f6f8;
+      --text: #1f2937;
+      --card: #ffffff;
+      --good: #d1fae5;
+      --neutral: #fef3c7;
+      --terrible: #fee2e2;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: grid;
+      place-items: center;
+      transition: background-color 0.3s ease;
+      padding: 1rem;
+    }
+
+    .board {
+      width: min(680px, 100%);
+      background: var(--card);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      text-align: center;
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 1.8rem;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
+      margin: 1rem 0 1.25rem;
+    }
+
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 0.7rem 1.2rem;
+      font-size: 1rem;
+      cursor: pointer;
+      background: #2563eb;
+      color: white;
+      transition: transform 0.1s ease, opacity 0.2s ease;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    #message {
+      font-size: 1.1rem;
+      margin: 0.4rem 0;
+      min-height: 1.4rem;
+    }
+
+    #quote {
+      margin: 0.6rem auto 0;
+      max-width: 55ch;
+      color: #374151;
+      font-style: italic;
+      min-height: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+  <main class="board">
+    <h1>How is your day going?</h1>
+    <div class="buttons">
+      <button id="goodBtn">Good Day</button>
+      <button id="neutralBtn">Neutral Day</button>
+      <button id="terribleBtn">Terrible Day</button>
+    </div>
+
+    <p id="message">Pick a mood to see your message.</p>
+    <p id="quote"></p>
+  </main>
+
+  <script>
+    const quotes = [
+      "Every day is a fresh start.",
+      "Small steps still move you forward.",
+      "Progress, not perfection.",
+      "You can do hard things.",
+      "A calm mind can handle any storm."
+    ];
+
+    const messageEl = document.getElementById("message");
+    const quoteEl = document.getElementById("quote");
+
+    function randomQuote() {
+      const index = Math.floor(Math.random() * quotes.length);
+      return quotes[index];
+    }
+
+    function updateMood(backgroundColor, message) {
+      document.body.style.backgroundColor = backgroundColor;
+      messageEl.textContent = message;
+      quoteEl.textContent = `"${randomQuote()}"`;
+    }
+
+    document.getElementById("goodBtn").addEventListener("click", () => {
+      updateMood("var(--good)", "Great to hear! Keep that energy going.");
+    });
+
+    document.getElementById("neutralBtn").addEventListener("click", () => {
+      updateMood("var(--neutral)", "A balanced day is still a good day.");
+    });
+
+    document.getElementById("terribleBtn").addEventListener("click", () => {
+      updateMood("var(--terrible)", "Sorry it's rough. Be kind to yourself today.");
+    });
+  </script>
+</body>
+</html>
